@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PostCard. — Write something worth sending.">
+  <title>PostCard.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+<!-- S1 -->
+<div class="screen active" id="s1">
+  <div class="logo">Post<em>Card.</em></div>
+  <div class="entry-wrap">
+    <div class="entry-card" id="enterBtn">
+      <div class="ec-stripe"></div>
+      <div class="ec-label">post · card</div>
+      <div class="ec-stamp-box">💌</div>
+      <div class="ec-body">
+        <div class="ec-icon" style="background:transparent"><img src="assets/stamp.png" style="width:160px;height:160px;object-fit:contain;display:block;margin:0 auto" alt="postcard stamp"></div>
+        <div class="ec-cta">begin →</div>
+      </div>
+      <div class="ec-pm"><span>SENT<br>WITH<br>LOVE</span></div>
+      <div class="ec-foot">this side for address only</div>
+    </div>
+  </div>
+  <div class="s1-tag">write it · design it · download it</div>
+</div>
+
+<!-- S2 TEMPLATE -->
+<div class="screen" id="s2">
+  <div class="prog" id="p2"></div>
+  <div class="sh"><div class="sh-eye">tap a design to continue</div><div class="sh-h">Choose your postcard</div></div>
+  <div class="tmpl-grid" id="tmplGrid"></div>
+  <button class="btn-ghost" onclick="go(1)">← back</button>
+</div>
+<!-- S3 -->
+<div class="screen" id="s3">
+  <div class="prog" id="p3"></div>
+  <div class="sh"><div class="sh-eye">step two</div><div class="sh-h">Write your postcard</div></div>
+  <div class="flip-tabs">
+    <button class="ftab on" id="fTab" onclick="showFace(&apos;front&apos;)">◼ Front</button>
+    <button class="ftab" id="bTab" onclick="showFace(&apos;back&apos;)">◼ Back</button>
+  </div>
+  <div class="flip-wrap" id="flipWrap" title="double-click to flip">
+    <div class="flip-inner" id="flipInner">
+      <div class="flip-face">
+        <img class="front-img" id="frontImg" src="" alt="postcard front">
+      </div>
+      <div class="flip-face flip-back-face">
+        <div class="back-live">
+          <div class="bl-stripe"></div>
+          <div class="bl-top"><span>Post Card</span></div>
+          <div class="bl-body">
+            <div class="bl-left">
+              <textarea id="msgInput" maxlength="260" placeholder="Dear friend,&#10;&#10;Thinking of you..."></textarea>
+              <div class="bl-sig"><span>—</span><input type="text" id="fromInput" placeholder="your name" maxlength="28"></div>
+            </div>
+            <div class="bl-divider"></div>
+            <div class="bl-right">
+              <div class="bl-stamp" id="stampCorner">
+                <span class="bsi" id="scI">🌸</span><span class="bsl" id="scL">bloom</span>
+              </div>
+              <div class="bl-to-block">
+                <div class="bl-to">To:</div>
+                <div class="bl-aline"><input type="text" id="toInput" placeholder="recipient&apos;s name" maxlength="30"></div>
+                <div class="bl-aline"><input type="text" id="cityInput" placeholder="city, country" maxlength="28"></div>
+              </div>
+              <div class="bl-pm"><span>SENT<br>WITH<br>LOVE</span></div>
+            </div>
+          </div>
+          <div class="bl-foot"><span>this side for address only</span><span>✦ ✦ ✦</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="photoUpWrap" style="display:none;width:100%">
+    <div class="dvr" style="margin-bottom:.55rem"><div class="dvr-l"></div><div class="dvr-t">front photo</div><div class="dvr-l"></div></div>
+    <div class="img-up" id="imgUp">
+      <span style="font-size:18px">🖼</span><span class="lbl">tap to upload photo</span>
+      <button class="img-clr" id="imgClr">remove</button>
+      <input type="file" id="imgFile" accept="image/*">
+    </div>
+    <button id="imgAdjustBtn" style="display:none;margin-top:6px;width:100%;padding:8px;background:transparent;border:1px solid #c0a870;border-radius:4px;font-family:'Special Elite',cursive;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);cursor:pointer">⊕ adjust crop</button>
+  </div>
+
+  <!-- Crop modal -->
+  <div id="cropModal" style="display:none;position:fixed;inset:0;background:rgba(26,15,4,.85);z-index:100;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;gap:1rem">
+    <div style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#faf5ec;text-align:center">Adjust your photo</div>
+    <div style="font-family:'Special Elite',cursive;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#c8a878;text-align:center">drag to reposition · scroll to zoom</div>
+    <div id="cropWrap" style="position:relative;width:100%;max-width:480px;aspect-ratio:1.58/1;overflow:hidden;border-radius:4px;border:2px solid #c0a870;cursor:grab;touch-action:none;background:#1a0f04">
+      <img id="cropImg" style="position:absolute;transform-origin:0 0;user-select:none;-webkit-user-drag:none;max-width:none" draggable="false" alt="">
+    </div>
+    <div style="display:flex;gap:.6rem;width:100%;max-width:480px">
+      <button id="cropCancel" style="flex:1;padding:11px;background:transparent;border:1px solid #c0a870;border-radius:4px;font-family:'Special Elite',cursive;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#c8a878;cursor:pointer">cancel</button>
+      <button id="cropApply" style="flex:2;padding:11px;background:#8b1a1a;border:none;border-radius:4px;font-family:'Special Elite',cursive;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#faf5ec;cursor:pointer;box-shadow:0 3px 0 #5a0a0a">apply crop</button>
+    </div>
+  </div>
+  <div style="font-family:'Special Elite',cursive;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#b0a080;text-align:center;opacity:.8">double-click the card to flip it</div>
+  <div class="dvr"><div class="dvr-l"></div><div class="dvr-t">stamp</div><div class="dvr-l"></div></div>
+  <div class="stamp-scroll" id="stampRow"></div>
+  <div class="dvr"><div class="dvr-l"></div><div class="dvr-t">ink colour</div><div class="dvr-l"></div></div>
+  <div class="ink-row" id="inkRow"></div>
+  <button class="btn" onclick="go(4)">print it →</button>
+  <button class="btn-ghost" onclick="go(2)">← back</button>
+</div>
+<!-- S4 -->
+<div class="screen" id="s4">
+  <div class="prog" id="p4"></div>
+  <div class="ptxt" id="ptxt">Pressing your postcard...</div>
+  <div class="psub" id="psub">just a moment</div>
+  <div class="res-wrap" id="resWrap" style="display:none"><canvas class="res-canvas" id="finalC"></canvas></div>
+  <div id="dlRow" style="display:none;width:100%;max-width:480px;margin:0 auto;flex-direction:column;gap:.6rem;align-items:stretch">
+    <button class="btn" id="shareBtn" style="display:none;width:100%">↑ share postcard</button>
+    <button class="btn" id="dlBtn" style="width:100%">↓ download postcard</button>
+    <button class="btn-sec" onclick="go(3)" style="width:100%">← edit</button>
+    <button class="btn-ghost" onclick="go(1)" style="width:100%;text-align:center">send another one</button>
+  </div>
+</div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
