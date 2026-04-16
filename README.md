@@ -15,6 +15,6 @@ A free browser-based vintage postcard maker. Write something worth sending.
 
 ## View Finished Site Here
 
-postcard-beige.vercel.app
+(https://postcard-beige.vercel.app/#s1)
 
 
