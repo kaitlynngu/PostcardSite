@@ -13,18 +13,8 @@ A free browser-based vintage postcard maker. Write something worth sending.
 - Download front + back stacked as one PNG
 - Fully responsive
 
-## Deploy to Vercel (recommended)
-
-1. Push this folder contents to a new GitHub repository
-2. Go to [vercel.com](https://vercel.com) → New Project → Import from GitHub
-3. No build settings needed — Vercel auto-detects static
-4. Click Deploy
-
-## Local preview
-
-Just open `index.html` in any browser. No build tools or server needed.
-
-## File structure
+## View Finished Site Here
+https://digibouquet.vercel.app/
 
 ```
 ├── index.html          Main app
