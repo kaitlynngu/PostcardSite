@@ -8,6 +8,6 @@
     "build": "echo 'No build needed for static HTML'"
   },
   "dependencies": {
-    "@vercel/analytics": "^1.4.1"
+    "@vercel/analytics": "^2.0.1"
   }
 }
