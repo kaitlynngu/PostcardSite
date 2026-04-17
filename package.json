@@ -1,0 +1,13 @@
+{
+  "name": "postcard-website",
+  "version": "1.0.0",
+  "description": "PostCard. — Write something worth sending.",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'No build needed for static HTML'"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}
